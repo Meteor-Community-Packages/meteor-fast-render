@@ -1,5 +1,11 @@
 # Change Log
 
+### v2.16.5
+- Fixed "document already present for an add" issue (thanks @anubhav756)
+
+### v2.16.4
+- Update for Meteor 1.5+ (thanks @hexsprite)
+
 ### v2.16.3
 - Updating `staringatlights:inject-data` dependency
 

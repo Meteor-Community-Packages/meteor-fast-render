@@ -47,12 +47,12 @@ FastRender.onPageLoad(async sink => {
 
 **Let's talk about hydration:** This is a great opportunity to make fast server-side rendered applications. Your HTML output can be rendered in a stream to the client, and the JS is only loaded and parsed once the HTML has been fully rendered. The data added by this method would not slow down the initial load time (when using streams). By injecting all of the necessary data after the HTML, the page can be rendered by the server and loaded on the client very quickly, and then the client can hydrate the DOM as soon as the JS payload loads, without then waiting for the data to load. Keep an eye on Meteor's support for `renderToNodeStream`.
 
-## What else can we do?
+#### What else can we do?
 
 * Critical CSS - We can inline the CSS used by components (css-modules, etc.) and defer loading of the main stylesheet
 * Support for dynamically loaded components (react-loadable, etc.)
 
-#### Iron Router
+### Iron Router
 
 IronRouter support has been dropped to focus on supporting various SSR methods. If someone still needs it and wants to maintain it, feel free to PR it back in.
 

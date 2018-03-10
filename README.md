@@ -43,7 +43,7 @@ On the server:
 
 ```js
 FastRender.onPageLoad(sink => {
-	sink.renderIntoElementById('app', renderToString(<App location="/" />))
+	sink.renderIntoElementById('app', renderToString(<App />))
 })
 ```
 

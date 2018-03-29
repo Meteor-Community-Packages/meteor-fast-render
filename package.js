@@ -2,7 +2,7 @@
 Package.describe({
 	summary:
 		'Render your app before the DDP connection even comes alive - magic?',
-	version: '3.0.0',
+	version: '3.0.1',
 	git: 'https://github.com/abecks/meteor-fast-render',
 	name: 'staringatlights:fast-render',
 })
@@ -74,6 +74,7 @@ Package.onTest(function(api) {
 	api.use('http', 'server')
 	api.use('random', ['server', 'client'])
 	api.use('mongo', ['server', 'client'])
+	api.use('server-render', ['server'])
 
 	api.addFiles(
 		[

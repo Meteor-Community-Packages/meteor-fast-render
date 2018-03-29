@@ -1,5 +1,9 @@
 # Change Log
 
+### 3.0.1
+
+* Add weak dependency on server-render
+
 ### v3.0.0
 
 * Added SSR helper APIs

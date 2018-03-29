@@ -74,7 +74,7 @@ Package.onTest(function(api) {
 	api.use('http', 'server')
 	api.use('random', ['server', 'client'])
 	api.use('mongo', ['server', 'client'])
-	api.use('server-render', ['server'])
+	api.use('server-render', ['server', 'client'])
 
 	api.addFiles(
 		[

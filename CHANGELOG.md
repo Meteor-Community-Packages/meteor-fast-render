@@ -1,5 +1,9 @@
 # Change Log
 
+### 3.0.2
+
+* Fix server-render dependency
+
 ### 3.0.1
 
 * Add weak dependency on server-render

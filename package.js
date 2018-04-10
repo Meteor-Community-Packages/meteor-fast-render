@@ -2,7 +2,7 @@
 Package.describe({
 	summary:
 		'Render your app before the DDP connection even comes alive - magic?',
-	version: '3.0.1',
+	version: '3.0.2',
 	git: 'https://github.com/abecks/meteor-fast-render',
 	name: 'staringatlights:fast-render',
 })

@@ -62,7 +62,7 @@ Package.onUse(function(api) {
 		],
 		'client'
 	)
-	api.use(['ecmascript'], ['client', 'server'])
+	api.use(['ecmascript', 'server-render'], ['client', 'server'])
 	// api.export('FastRender', ['client', 'server'])
 	// api.export('__init_fast_render', ['client'])
 })

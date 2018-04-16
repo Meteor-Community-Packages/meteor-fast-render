@@ -208,6 +208,10 @@ Currently FastRender does not support simultaneous usage with [appcache package]
 
 Related Issue & Discussion: <https://github.com/kadirahq/fast-render/issues/136>
 
+### No data is injected when using Meteor Subscription Cache
+
+When using the subscache package (`ccorcos:subs-cache` or `blockrazor:subscache-c4`) the parameters passed to the subscription must the identical on both Fast Render and Subscache or no data will be injected.
+
 ## Debugging
 
 Sometimes, you need to test whether Fast Render is working or not. You can do this using the built-in debugger. The debugger works on the client and is safe to run it on a deployed app. It has a few useful features:

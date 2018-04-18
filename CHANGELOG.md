@@ -1,5 +1,9 @@
 # Change Log
 
+### 3.0.3
+
+* Add support for an async callback in `FastRender.onPageLoad`
+
 ### 3.0.2
 
 * Fix server-render dependency

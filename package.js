@@ -40,7 +40,6 @@ Package.onUse(function(api) {
 
 	api.addFiles(
 		[
-			'lib/server/namespace.js',
 			'lib/server/utils.js',
 			'lib/server/routes.js',
 			'lib/server/publish_context.js',
@@ -53,7 +52,6 @@ Package.onUse(function(api) {
 	api.addFiles(
 		[
 			'lib/client/id_tools.js',
-			'lib/client/fast_render.js',
 			'lib/client/debugger.js',
 			'lib/client/ddp_update.js',
 			'lib/client/auth.js',

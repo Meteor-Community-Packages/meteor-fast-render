@@ -29,7 +29,7 @@ local-test:staringatlights:fast-render@3.0.2
 localstorage@1.2.0
 logging@1.1.19
 meteor@1.8.2
-meteorhacks:meteorx@1.4.1
+lamhieu:meteorx@2.0.1
 meteorhacks:picker@1.0.3
 minimongo@1.4.3
 modules@0.11.5

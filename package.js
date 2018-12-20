@@ -15,7 +15,7 @@ Package.onUse(function(api) {
 	api.versionsFrom('METEOR@1.6.1')
 	api.mainModule('lib/client/fast_render.js', 'client')
 	api.mainModule('lib/server/namespace.js', 'server')
-	api.use('staringatlights:inject-data@2.2.0', ['client', 'server'])
+	api.use('staringatlights:inject-data@2.2.1', ['client', 'server'])
 	api.use('chuangbo:cookie@1.1.0', 'client')
 	api.use('meteorhacks:picker@1.0.3', 'server')
 	api.use('lamhieu:meteorx@2.0.1', 'server')

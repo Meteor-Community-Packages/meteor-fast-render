@@ -1,5 +1,9 @@
 # Change Log
 
+### 3.0.6
+
+- Upgrade `inject-data` dependency version
+
 ### 3.0.5
 
 - Switched to `lamhieu:meteorx` from `meteorhacks:meteorx`

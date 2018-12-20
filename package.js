@@ -18,7 +18,7 @@ Package.onUse(function(api) {
 	api.use('staringatlights:inject-data@2.2.0', ['client', 'server'])
 	api.use('chuangbo:cookie@1.1.0', 'client')
 	api.use('meteorhacks:picker@1.0.3', 'server')
-	api.use('meteorhacks:meteorx@1.4.1', 'server')
+	api.use('lamhieu:meteorx@2.0.1', 'server')
 
 	api.use(
 		[

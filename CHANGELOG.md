@@ -1,5 +1,9 @@
 # Change Log
 
+### 3.0.7
+
+- Revert regression from 3.0.5
+
 ### 3.0.6
 
 - Upgrade `inject-data` dependency version

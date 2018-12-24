@@ -1,5 +1,9 @@
 # Change Log
 
+### 3.0.8
+
+- Fixed params serialization issue that would cause server-side subscriptions (via `route`, `onAllRoutes`, `onPageLoad`) to not match their client-side counterparts if `onStop` or `onReady` callback usage did not match in both environments
+
 ### 3.0.7
 
 - Revert regression from 3.0.5

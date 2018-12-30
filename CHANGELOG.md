@@ -1,5 +1,9 @@
 # Change Log
 
+### v.NEXT
+
+- Flush buffered DDP writes for every message instead of batching them together, so that one failure doesn't cause them all to fail. There is a race condition between the `Accounts` package and `FastRender.init` in development mode. FastRender's buffered writes will fail if `Accounts` adds the `user` document to the collection after FR's checks, but before/during the batched buffered write. This change makes the buffered writes atomic and adds better error messages so we can tell specifically which write has failed.
+
 ### 3.0.8
 
 - Fixed params serialization issue that would cause server-side subscriptions (via `route`, `onAllRoutes`, `onPageLoad`) to not match their client-side counterparts if `onStop` or `onReady` callback usage did not match in both environments

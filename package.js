@@ -34,7 +34,7 @@ Package.onUse(function(api) {
 		['server']
 	)
 	api.use(
-		['minimongo', 'deps', 'ejson', 'accounts-base'],
+		['minimongo', 'ejson', 'accounts-base'],
 		['client']
 	)
 

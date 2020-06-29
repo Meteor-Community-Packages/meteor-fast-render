@@ -1,4 +1,4 @@
-# Fast Render 3 (Updated for Meteor 1.6.1)
+# Fast Render 3 (Updated for Meteor 1.9)
 
 Fast Render is back!
 

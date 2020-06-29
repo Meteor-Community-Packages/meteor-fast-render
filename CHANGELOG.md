@@ -1,6 +1,6 @@
 # Change Log
 
-### 3.2.1
+### 3.3.0
 
 - Fix for Meteor 1.9 (thanks @mrauhu)
 

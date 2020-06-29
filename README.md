@@ -6,8 +6,6 @@ Fast Render can improve the initial load time of your app, giving you 2-10 times
 
 #### This is a continuation of `meteorhacks:fast-render` by @arunoda
 
-### Disclaimer: 3.0 is still experimental. Use in production only after thorough testing. Please let me know your experience.
-
 **Table of Contents**
 
 * [Fast Render 3.x vs 2.x](#fast-render-3x-vs-2x)

@@ -1,6 +1,10 @@
 # Change Log
 
-### v.NEXT
+### 3.2.1
+
+- Fix for Meteor 1.9 (thanks @mrauhu)
+
+### 3.2.0
 
 - Flush buffered DDP writes for every message instead of batching them together, so that one failure doesn't cause them all to fail. There is a race condition between the `Accounts` package and `FastRender.init` in development mode. FastRender's buffered writes will fail if `Accounts` adds the `user` document to the collection after FR's checks, but before/during the batched buffered write. This change makes the buffered writes atomic and adds better error messages so we can tell specifically which write has failed.
 

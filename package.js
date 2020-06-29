@@ -2,16 +2,16 @@
 Package.describe({
 	summary:
 		'Render your app before the DDP connection even comes alive - magic?',
-	version: '3.2.0',
+	version: '3.3.0',
 	git: 'https://github.com/abecks/meteor-fast-render',
 	name: 'staringatlights:fast-render',
 })
 
 Npm.depends({
-	"cookie-parser": '1.4.4',
+	'cookie-parser': '1.4.4',
 })
 
-Package.onUse(function(api) {
+Package.onUse(function (api) {
 	api.versionsFrom('METEOR@1.6.1')
 	api.mainModule('lib/client/fast_render.js', 'client')
 	api.mainModule('lib/server/namespace.js', 'server')
@@ -62,7 +62,7 @@ Package.onUse(function(api) {
 	// api.export('__init_fast_render', ['client'])
 })
 
-Package.onTest(function(api) {
+Package.onTest(function (api) {
 	api.use(['ecmascript'], ['client', 'server'])
 	api.use('staringatlights:fast-render', ['client', 'server'])
 	api.use('tinytest', ['client', 'server'])

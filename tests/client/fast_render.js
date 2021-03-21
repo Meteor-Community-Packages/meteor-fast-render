@@ -1,12 +1,12 @@
 /* global Tinytest */
-import { FastRender } from 'meteor/staringatlights:fast-render'
+import { FastRender } from 'meteor/communitypackages:fast-render'
 import { Random } from 'meteor/random'
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 
 const bufferedWritesInterval = 5
 
-Tinytest.add('FastRender - init - coll data ', function(test) {
+Tinytest.add('FastRender - init - coll data ', function (test) {
 	var expectedMessages = [
 		{
 			msg: 'added',
@@ -44,10 +44,10 @@ Tinytest.add('FastRender - init - coll data ', function(test) {
 	var newMessages = []
 
 	WithNewInjectDdpMessage(
-		function(conn, ddpMessage) {
+		function (conn, ddpMessage) {
 			newMessages.push(ddpMessage)
 		},
-		function() {
+		function () {
 			FastRender.init(payload)
 
 			test.equal(newMessages, expectedMessages)
@@ -56,7 +56,7 @@ Tinytest.add('FastRender - init - coll data ', function(test) {
 	)
 })
 
-Tinytest.addAsync('FastRender - init - ObjectId support', function(test, done) {
+Tinytest.addAsync('FastRender - init - ObjectId support', function (test, done) {
 	var id = new FastRender.IDTools.ObjectID()
 	var payload = {
 		subscriptions: { posts: true },
@@ -66,17 +66,17 @@ Tinytest.addAsync('FastRender - init - ObjectId support', function(test, done) {
 	}
 
 	WithNewInjectDdpMessage(
-		function(conn, ddpMessage) {
+		function (conn, ddpMessage) {
 			test.equal(ddpMessage.id, id._str)
 			done()
 		},
-		function() {
+		function () {
 			FastRender.init(payload)
 		}
 	)
 })
 
-Tinytest.addAsync('FastRender - init - merge docs', function(test, done) {
+Tinytest.addAsync('FastRender - init - merge docs', function (test, done) {
 	var collName = Random.id()
 	var payload = {
 		subscriptions: { posts: true },
@@ -92,7 +92,7 @@ Tinytest.addAsync('FastRender - init - merge docs', function(test, done) {
 	FastRender.init(payload)
 
 	var coll = new Mongo.Collection(collName)
-	Meteor.setTimeout(function() {
+	Meteor.setTimeout(function () {
 		test.equal(coll.findOne('one'), {
 			_id: 'one',
 			name: 'arunoda',
@@ -104,7 +104,7 @@ Tinytest.addAsync('FastRender - init - merge docs', function(test, done) {
 	}, bufferedWritesInterval)
 })
 
-Tinytest.addAsync('FastRender - init - merge docs deep', function(test, done) {
+Tinytest.addAsync('FastRender - init - merge docs deep', function (test, done) {
 	var collName = Random.id()
 	var payload = {
 		subscriptions: { posts: true },
@@ -125,7 +125,7 @@ Tinytest.addAsync('FastRender - init - merge docs deep', function(test, done) {
 	FastRender.init(payload)
 
 	var coll = new Mongo.Collection(collName)
-	Meteor.setTimeout(function() {
+	Meteor.setTimeout(function () {
 		test.equal(coll.findOne('one'), {
 			_id: 'one',
 			name: 'arunoda',
@@ -138,7 +138,7 @@ Tinytest.addAsync('FastRender - init - merge docs deep', function(test, done) {
 	}, bufferedWritesInterval)
 })
 
-Tinytest.addAsync('FastRender - init - ejon data', function(test, done) {
+Tinytest.addAsync('FastRender - init - ejon data', function (test, done) {
 	var collName = Random.id()
 	var payload = {
 		subscriptions: { posts: true },
@@ -153,14 +153,14 @@ Tinytest.addAsync('FastRender - init - ejon data', function(test, done) {
 	FastRender.init(payload)
 
 	var coll = new Mongo.Collection(collName)
-	Meteor.setTimeout(function() {
+	Meteor.setTimeout(function () {
 		var doc = coll.findOne('one')
 		test.equal(doc.date.getTime(), date.getTime())
 		done()
 	}, bufferedWritesInterval)
 })
 
-const WithNewInjectDdpMessage = function(newCallback, runCode) {
+const WithNewInjectDdpMessage = function (newCallback, runCode) {
 	var originalInjectDDP = FastRender.injectDdpMessage
 	FastRender.injectDdpMessage = newCallback
 	if (runCode) runCode()

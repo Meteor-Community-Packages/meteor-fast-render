@@ -1,5 +1,5 @@
 /* global Tinytest */
-import { FastRender } from 'meteor/staringatlights:fast-render'
+import { FastRender } from 'meteor/communitypackages:fast-render'
 import { Random } from 'meteor/random'
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
@@ -7,7 +7,7 @@ import { EJSON } from 'meteor/ejson'
 
 const bufferedWritesInterval = 5
 
-Tinytest.addAsync('DDPUpdate - convert added to changed', function(test, done) {
+Tinytest.addAsync('DDPUpdate - convert added to changed', function (test, done) {
 	var collName = Random.id()
 	var coll = new Mongo.Collection(collName)
 
@@ -18,7 +18,7 @@ Tinytest.addAsync('DDPUpdate - convert added to changed', function(test, done) {
 		fields: { name: 'arunoda' },
 	})
 
-	Meteor.setTimeout(function() {
+	Meteor.setTimeout(function () {
 		test.equal(coll.findOne('one'), { _id: 'one', name: 'arunoda' })
 
 		Meteor.connection._livedata_data({
@@ -28,14 +28,14 @@ Tinytest.addAsync('DDPUpdate - convert added to changed', function(test, done) {
 			fields: { name: 'kuma', age: 20 },
 		})
 
-		Meteor.setTimeout(function() {
+		Meteor.setTimeout(function () {
 			test.equal(coll.findOne('one'), { _id: 'one', name: 'kuma', age: 20 })
 			done()
 		}, bufferedWritesInterval)
 	}, bufferedWritesInterval)
 })
 
-Tinytest.addAsync('DDPUpdate - create collection later on', function(
+Tinytest.addAsync('DDPUpdate - create collection later on', function (
 	test,
 	done
 ) {
@@ -56,13 +56,13 @@ Tinytest.addAsync('DDPUpdate - create collection later on', function(
 	})
 
 	var coll = new Mongo.Collection(collName)
-	Meteor.setTimeout(function() {
+	Meteor.setTimeout(function () {
 		test.equal(coll.find().fetch().length, 2)
 		done()
 	}, bufferedWritesInterval)
 })
 
-Tinytest.add('DDPUpdate - delete subscriptions', function(test) {
+Tinytest.add('DDPUpdate - delete subscriptions', function (test) {
 	FastRender._revertedBackToOriginal = false
 	var sub1 = { name: 'coola', paramsKey: 'k1' }
 	var sub2 = { name: 'booma', paramsKey: 'k2' }
@@ -80,7 +80,7 @@ Tinytest.add('DDPUpdate - delete subscriptions', function(test) {
 	test.equal(FastRender._subscriptions, { booma: { k2: true } })
 })
 
-Tinytest.add('DDPUpdate - ignore frGen ready messages', function(test) {
+Tinytest.add('DDPUpdate - ignore frGen ready messages', function (test) {
 	FastRender._revertedBackToOriginal = false
 	FastRender._subscriptionIdMap = { subId: 'coola', subId2: 'coola' }
 	FastRender._subscriptions = { coola: true, booma: true }
@@ -97,7 +97,7 @@ Tinytest.add('DDPUpdate - ignore frGen ready messages', function(test) {
 	test.equal(FastRender._subscriptions, { coola: true, booma: true })
 })
 
-Tinytest.add('DDPUpdate - revertedBackToOriginal', function(test) {
+Tinytest.add('DDPUpdate - revertedBackToOriginal', function (test) {
 	FastRender._revertedBackToOriginal = false
 	FastRender._subscriptionIdMap = { subId: { name: 'coola', paramsKey: 'pk' } }
 	FastRender._subscriptions = { coola: { pk: true } }
@@ -112,7 +112,7 @@ Tinytest.add('DDPUpdate - revertedBackToOriginal', function(test) {
 	test.equal(FastRender._revertedBackToOriginal, true)
 })
 
-Tinytest.add('DDPUpdate - fake ready messages', function(test) {
+Tinytest.add('DDPUpdate - fake ready messages', function (test) {
 	FastRender._revertedBackToOriginal = false
 	var orginalSend = Meteor.connection._send
 

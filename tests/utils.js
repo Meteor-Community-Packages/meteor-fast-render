@@ -1,7 +1,7 @@
 /* global Tinytest */
-import { FastRender } from 'meteor/staringatlights:fast-render'
+import { FastRender } from 'meteor/communitypackages:fast-render'
 
-Tinytest.add('AddedToChanged - new fields', function(test) {
+Tinytest.add('AddedToChanged - new fields', function (test) {
 	var localCopy = { aa: 10 }
 	var added = { fields: { aa: 20, bb: 20 }, msg: 'added' }
 
@@ -11,7 +11,7 @@ Tinytest.add('AddedToChanged - new fields', function(test) {
 	test.equal(added.fields, { aa: 20, bb: 20 })
 })
 
-Tinytest.add('AddedToChanged - removed fields', function(test) {
+Tinytest.add('AddedToChanged - removed fields', function (test) {
 	var localCopy = { aa: 10, cc: 20, bb: 10 }
 	var added = { fields: { bb: 20 }, msg: 'added' }
 

@@ -1,18 +1,18 @@
 /* global Tinytest */
-import { FastRender } from 'meteor/staringatlights:fast-render'
+import { FastRender } from 'meteor/communitypackages:fast-render'
 import { Random } from 'meteor/random'
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import { Accounts } from 'meteor/accounts-base'
 
-Tinytest.add('Context - subscribe', function(test) {
+Tinytest.add('Context - subscribe', function (test) {
 	var collName = Random.id()
 	var coll = new Mongo.Collection(collName)
 	coll.insert({ _id: 'one', age: 20 })
 	coll.insert({ _id: 'two', age: 40 })
 
 	var pubName = Random.id()
-	Meteor.publish(pubName, function() {
+	Meteor.publish(pubName, function () {
 		return coll.find()
 	})
 
@@ -30,14 +30,14 @@ Tinytest.add('Context - subscribe', function(test) {
 	test.equal(context.getData(), expectedData)
 })
 
-Tinytest.add('Context - subscribe with this.x apis', function(test) {
+Tinytest.add('Context - subscribe with this.x apis', function (test) {
 	var collName = Random.id()
 	var coll = new Mongo.Collection(collName)
 	coll.insert({ _id: 'one', age: 20 })
 	coll.insert({ _id: 'two', age: 40 })
 
 	var pubName = Random.id()
-	Meteor.publish(pubName, function() {
+	Meteor.publish(pubName, function () {
 		var data = coll.find().fetch()
 		this.added(collName, data[0]._id, data[0])
 		this.added(collName, data[1]._id, data[1])
@@ -58,11 +58,11 @@ Tinytest.add('Context - subscribe with this.x apis', function(test) {
 	test.equal(context.getData(), expectedData)
 })
 
-Tinytest.add('Context - subscribe with this.x apis - no ready called', function(
+Tinytest.add('Context - subscribe with this.x apis - no ready called', function (
 	test
 ) {
 	var pubName = Random.id()
-	Meteor.publish(pubName, function() {})
+	Meteor.publish(pubName, function () { })
 
 	var context = new FastRender._Context()
 	context.subscribe(pubName)
@@ -76,7 +76,7 @@ Tinytest.add('Context - subscribe with this.x apis - no ready called', function(
 	test.equal(context.getData(), expectedData)
 })
 
-Tinytest.addAsync('Context - loggedIn user', function(test, done) {
+Tinytest.addAsync('Context - loggedIn user', function (test, done) {
 	var id = Random.id()
 	var username = Random.id()
 	var loginToken = Random.id()
@@ -88,7 +88,7 @@ Tinytest.addAsync('Context - loggedIn user', function(test, done) {
 	})
 
 	var pubName = Random.id()
-	Meteor.publish(pubName, function() {
+	Meteor.publish(pubName, function () {
 		test.equal(this.userId, id)
 		test.equal(Meteor.userId(), id)
 		done()

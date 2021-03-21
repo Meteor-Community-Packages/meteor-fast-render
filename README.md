@@ -1,21 +1,36 @@
-# Fast Render 3 (Updated for Meteor 1.9)
+# Fast Render
 
 Fast Render is back!
 
 Fast Render can improve the initial load time of your app, giving you 2-10 times faster initial page loads. It provides the same effect as Server Side Rendering (SSR), but still sends data over the wire to avoid breaking one of Meteor’s core principles.
 
-#### This is a continuation of `meteorhacks:fast-render` by @arunoda
+> This is a continuation of `meteorhacks:fast-render` by @arunoda
 
-**Table of Contents**
-
-* [Fast Render 3.x vs 2.x](#fast-render-3x-vs-2x)
-* [Demo](#demo)
-* [Usage](#usage)
-* [How Fast Render Works](#how-fast-render-works)
-* [Using Fast Render's route APIs](#using-fast-renders-route-apis)
-* [Security](#security)
-* [Known Issues](#known-issues)
-* [Debugging](#debugging)
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+- [Fast Render 3.x vs 2.x](#fast-render-3x-vs-2x)
+  - [Client-side timing control](#client-side-timing-control)
+  - [New SSR APIs](#new-ssr-apis)
+- [Data Hydration](#data-hydration)
+- [What else can we do?](#what-else-can-we-do)
+- [Usage](#usage)
+- [How Fast Render Works](#how-fast-render-works)
+- [Using Fast Render's route APIs](#using-fast-renders-route-apis)
+  - [FastRender.route(callback)](#fastrenderroutecallback)
+  - [FastRender.onAllRoutes(callback)](#fastrenderonallroutescallback)
+- [Security](#security)
+  - [Side Effects](#side-effects)
+    - [CORS Headers](#cors-headers)
+    - [Cookie Tossing](#cookie-tossing)
+- [Known Issues](#known-issues)
+  - [Client Error: "Server sent add for existing id"](#client-error-server-sent-add-for-existing-id)
+  - [No data is injected when using "AppCache" package](#no-data-is-injected-when-using-appcache-package)
+  - [No data is injected when using Meteor Subscription Cache](#no-data-is-injected-when-using-meteor-subscription-cache)
+- [Debugging](#debugging)
+  - [Block DDP](#block-ddp)
+  - [Get Payload](#get-payload)
+  - [Disable Fast Render](#disable-fast-render)
+  - [Logs](#logs)
+<!-- /TOC -->
 
 ## Fast Render 3.x vs 2.x
 
@@ -26,16 +41,16 @@ Have you ever seen the error `Expected to find a document not present for an add
 ```js
 FastRender.wait() // tell fastrender not to start loading the data automatically
 InjectData.getData('fast-render-data', function(data) {
-	FastRender.init(data)
-	// it is now safe to begin routing/rendering
+ FastRender.init(data)
+ // it is now safe to begin routing/rendering
 })
 ```
 
-#### New SSR APIs
+### New SSR APIs
 
 Fast Render 3.x comes with helpers for server-side rendering:
 
-### Data Hydration
+## Data Hydration
 
 FastRender will track subscriptions and load their data after your initial HTML render has been sent. The data will be immediately available for hydrating on the client. Use `FastRender.onPageLoad` instead of Meteor's `server-render` `onPageLoad`. You can use `Meteor.subscribe` in your React containers and the data will automatically be appended to the HTML document. `FastRender.route` and `FastRender.onAllRoutes` will still work as expected.
 
@@ -43,7 +58,7 @@ On the server:
 
 ```js
 FastRender.onPageLoad(sink => {
-	sink.renderIntoElementById('app', renderToString(<App />))
+ sink.renderIntoElementById('app', renderToString(<App />))
 })
 ```
 
@@ -51,47 +66,24 @@ On the client:
 
 ```js
 FastRender.onPageLoad(async sink => {
-	const App = (await import('/imports/components/App/App')).default
-	ReactDOM.hydrate(<App />, document.getElementById('app'))
+ const App = (await import('/imports/components/App/App')).default
+ ReactDOM.hydrate(<App />, document.getElementById('app'))
 })
 ```
 
 **Let's talk about hydration:** This is a great opportunity to make fast server-side rendered applications. Your HTML output can be rendered in a stream to the client, and the JS is only loaded and parsed once the HTML has been fully rendered. The data added by this method would not slow down the initial load time (when using streams). By injecting all of the necessary data after the HTML, the page can be rendered by the server and loaded on the client very quickly, and then the client can hydrate the DOM as soon as the JS payload loads, without then waiting for the data to load. Keep an eye on Meteor's support for `renderToNodeStream`.
 
-#### What else can we do?
+## What else can we do?
 
-* Critical CSS - We can inline the CSS used by components (css-modules, etc.) and defer loading of the main stylesheet
-* Support for dynamically loaded components (react-loadable, etc.)
-
-### Iron Router
-
-IronRouter support has been dropped to focus on supporting various SSR methods. If someone still needs it and wants to maintain it, feel free to PR it back in.
-
-## Demo
-
-Let's look at a demo. Here is the leaderboard example from [BulletProof Meteor](https://bulletproofmeteor.com). It's written using Meteor and Iron Router:
-
-![a Meteor app Without Fast Render](https://cldup.com/v4PmJqPtlY.png)
-
-Here you see the loading screen while we wait on data to render the actual leaderboard.
-
----
-
-Now let's see how the leaderboard loads when using Fast Render: [click here](https://bulletproofmeteor.com/leaderboard).
-
-You never see the loading screen becuase we don't have to wait on data. Right after the page is loaded, the leaderboard is there. To do this, all we've done is add Fast Render to the app and insert a single line of configuration.
-
-Check this demo [video](https://www.youtube.com/watch?v=mGcE6UVOqPk) if you need to see more what Fast Render can do.
+- Critical CSS - We can inline the CSS used by components (css-modules, etc.) and defer loading of the main stylesheet
+- Support for dynamically loaded components (react-loadable, etc.)
 
 ## Usage
 
-> **Attention**
-> If you are new to Fast Render, I highly recommend you follow [this BulletProof Meteor lesson](https://bulletproofmeteor.com/basics/no-more-loading). It explains how to use Fast Render and why you might want to.
-
 Add Fast Render to your Meteor app:
 
-```shell
-meteor add staringatlights:fast-render
+```sh
+meteor add communitypackages:fast-render
 ```
 
 After that, make sure you've moved your route related code (`router.js` file or relavant files) to a place which can be access by both server and client. (i.e. the `lib` folder).
@@ -104,11 +96,11 @@ Then add the `fastRender: true` option to your route:
 
 ```js
 this.route('leaderboard', {
-	path: '/leaderboard/:date?',
-	waitOn: function() {
-		return Meteor.subscribe('leaderboard')
-	},
-	fastRender: true,
+ path: '/leaderboard/:date?',
+ waitOn: function() {
+  return Meteor.subscribe('leaderboard')
+ },
+ fastRender: true,
 })
 ```
 
@@ -120,8 +112,6 @@ Fast render runs the `waitOn` function (or one of the Fast Render API calls) on 
 
 Then Fast Render parses and loads that data into Meteor collections. This makes your Meteor app code (Iron Router) think the data connection has been made, and it renders the page right away.
 
-> If you want to learn more about how Fast Render works, refer to [this article](https://meteorhacks.com/fast-render-internals-and-how-it-works.html).
-
 ## Using Fast Render's route APIs
 
 If you're doing some custom subscription handling, Fast Render won't be able to identify those subscriptions. This is also true when you are not using Iron Router.
@@ -130,7 +120,7 @@ If you want to use Fast Render in these cases, you'll need to map subscriptions 
 
 > The following APIs are available on the server only.
 
-#### FastRender.route(callback)
+### FastRender.route(callback)
 
 This declares server side routes using a URL pattern similar to Iron Router's. The callback runs in a context very similar to Meteor and you can use any Meteor APIs inside it (it runs on a Fiber). Inside, you can subscribe to publications using `this.subscribe`.
 
@@ -138,11 +128,11 @@ Use it like this:
 
 ```js
 FastRender.route('/leaderboard/:date', function(params) {
-	this.subscribe('leaderboard', params.date)
+ this.subscribe('leaderboard', params.date)
 })
 ```
 
-#### FastRender.onAllRoutes(callback)
+### FastRender.onAllRoutes(callback)
 
 This is very similar to `FastRender.route`, but lets you register a callback which will run on all routes.
 
@@ -150,7 +140,7 @@ Use it like this:
 
 ```js
 FastRender.onAllRoutes(function(path) {
-	this.subscribe('currentUser')
+ this.subscribe('currentUser')
 })
 ```
 
@@ -162,7 +152,7 @@ This is not inherently bad, but this might potentially cause some security issue
 
 > These issues were raised by [Emily Stark](https://twitter.com/estark37) from the [meteor-core team](https://groups.google.com/forum/#!msg/meteor-talk/1Fg4rNk9JZM/ELX3672QsrEJ).
 
-#### Side Effects
+### Side Effects
 
 It is possible to send custom HTTP requests to routes handled by Fast Render either using an XHR request or a direct HTTP request.
 
@@ -170,9 +160,9 @@ So if you are doing some DB write operations or saving something to the filesyst
 
 It is wise to avoid side effects from following places:
 
-* publications
-* fastRender routes
-* IronRouter waitOn and subscriptions methods
+- publications
+- fastRender routes
+- IronRouter waitOn and subscriptions methods
 
 #### CORS Headers
 
@@ -214,25 +204,25 @@ When using the subscache package (`ccorcos:subs-cache` or `blockrazor:subscache-
 
 Sometimes, you need to test whether Fast Render is working or not. You can do this using the built-in debugger. The debugger works on the client and is safe to run it on a deployed app. It has a few useful features:
 
-#### Block DDP
+### Block DDP
 
 You can block the DDP connection and check whether the page was fast rendered or not. Once blocked, no DDP messages will be accepted. To block, apply following command in the browser console:
 
-```
+```js
 FastRender.debugger.blockDDP()
 ```
 
 You can unblock it with:
 
-```
+```js
 FastRender.debugger.unblockDDP()
 ```
 
-#### Get Payload
+### Get Payload
 
 With the following command you can inspect the data that comes on a Fast Render page load:
 
-```
+```js
 FastRender.debugger.getPayload()
 ```
 
@@ -260,21 +250,21 @@ It will be in this format:
 
 > You can also apply `FastRender.debugger.getPayloadJSON()` to get the logs as a JSON string.
 
-#### Disable Fast Render
+### Disable Fast Render
 
 You can also use a command to disable Fast Render:
 
-```
+```js
 FastRender.debugger.disableFR()
 ```
 
 Re-enable it with:
 
-```
+```js
 FastRender.debugger.enableFR()
 ```
 
-#### Logs
+### Logs
 
 Fast Render has robust logging.
 

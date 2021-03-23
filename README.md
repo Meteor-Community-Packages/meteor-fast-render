@@ -6,7 +6,9 @@ Fast Render can improve the initial load time of your app, giving you 2-10 times
 
 > This is a continuation of `meteorhacks:fast-render` by @arunoda
 
+## Table of Contents
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+- [Table of Contents](#table-of-contents)
 - [Fast Render 3.x vs 2.x](#fast-render-3x-vs-2x)
   - [Client-side timing control](#client-side-timing-control)
   - [New SSR APIs](#new-ssr-apis)

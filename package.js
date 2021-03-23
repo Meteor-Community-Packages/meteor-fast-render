@@ -1,7 +1,6 @@
 /* global Package Npm */
 Package.describe({
-	summary:
-		'Render your app before the DDP connection even comes alive - magic?',
+	summary: 'Render your app before the DDP connection even comes alive - magic?',
 	version: '3.3.1',
 	git: 'https://github.com/abecks/meteor-fast-render',
 	name: 'communitypackages:fast-render',
@@ -17,7 +16,7 @@ Package.onUse(function (api) {
 	api.mainModule('lib/server/namespace.js', 'server')
 	api.use('communitypackages:inject-data@2.3.1', ['client', 'server'])
 	api.use('chuangbo:cookie@1.1.0', 'client')
-	api.use('meteorhacks:picker@1.0.3', 'server')
+	api.use('communitypackages:picker@1.1.0', 'server')
 	api.use('lamhieu:meteorx@2.0.1', 'server')
 
 	api.use(

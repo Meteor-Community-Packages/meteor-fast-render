@@ -7,7 +7,7 @@ Package.describe({
 })
 
 Npm.depends({
-	'cookie-parser': '1.4.4',
+	'cookie-parser': '1.4.5',
 })
 
 Package.onUse(function (api) {

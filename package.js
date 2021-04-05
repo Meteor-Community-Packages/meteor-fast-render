@@ -12,53 +12,15 @@ Npm.depends({
 
 Package.onUse(function (api) {
 	api.versionsFrom('METEOR@1.6.1')
-	api.mainModule('lib/client/fast_render.js', 'client')
-	api.mainModule('lib/server/namespace.js', 'server')
-	api.use('communitypackages:inject-data@2.3.1', ['client', 'server'])
+
 	api.use('chuangbo:cookie@1.1.0', 'client')
-	api.use('communitypackages:picker@1.1.0', 'server')
-	api.use('lamhieu:meteorx@2.0.1', 'server')
+	api.use(['communitypackages:picker@1.1.0', 'lamhieu:meteorx@2.0.1'], 'server')
+	api.use('communitypackages:inject-data@2.3.1', ['client', 'server'])
+	api.use(['livedata', 'webapp', 'routepolicy', 'random'], 'server')
+	api.use(['ecmascript', 'server-render', 'accounts-base', 'ejson', 'minimongo'], ['client', 'server'])
 
-	api.use(
-		[
-			'minimongo',
-			'livedata',
-			'ejson',
-			'underscore',
-			'webapp',
-			'routepolicy',
-			'accounts-base',
-			'random',
-		],
-		['server']
-	)
-	api.use(['minimongo', 'ejson', 'accounts-base'], ['client'])
-
-	api.addFiles(
-		[
-			'lib/server/utils.js',
-			'lib/server/routes.js',
-			'lib/server/publish_context.js',
-			'lib/server/context.js',
-			'lib/server/ssr_helper.js',
-		],
-		'server'
-	)
-
-	api.addFiles(
-		[
-			'lib/client/id_tools.js',
-			'lib/client/debugger.js',
-			'lib/client/ddp_update.js',
-			'lib/client/auth.js',
-			'lib/client/ssr_helper.js',
-			'lib/client/boot.js',
-		],
-		'client'
-	)
-	api.use(['ecmascript', 'server-render'], ['client', 'server'])
-	// api.export('FastRender', ['client', 'server'])
-	// api.export('__init_fast_render', ['client'])
+	api.mainModule('lib/client/fast_render.js', 'client')
+	api.mainModule('lib/server/fast_render.js', 'server')
 })
 
 Package.onTest(function (api) {

@@ -1,28 +1,28 @@
 # Fast Render
 
-Fast Render is back!
-
-Fast Render can improve the initial load time of your app, giving you 2-10 times faster initial page loads. It provides the same effect as Server Side Rendering (SSR), but still sends data over the wire to avoid breaking one of Meteor’s core principles.
+Fast Render can improve the initial load time of your app, giving you 2-10 times faster initial page loads.
 
 > This is a continuation of `meteorhacks:fast-render` by @arunoda
 
 ## Table of Contents
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [Table of Contents](#table-of-contents)
-- [Fast Render 3.x vs 2.x](#fast-render-3x-vs-2x)
-  - [Client-side timing control](#client-side-timing-control)
-  - [New SSR APIs](#new-ssr-apis)
-- [Data Hydration](#data-hydration)
-- [What else can we do?](#what-else-can-we-do)
 - [Usage](#usage)
 - [How Fast Render Works](#how-fast-render-works)
-- [Using Fast Render's route APIs](#using-fast-renders-route-apis)
+- [Client-side timing control](#client-side-timing-control)
+- [SSR API](#ssr-api)
+  - [View layer specific SSR packages](#view-layer-specific-ssr-packages)
+  - [What else can we do?](#what-else-can-we-do)
+- [Extra Data API](#extra-data-api)
+  - [FastRender.addExtraData('key', data)](#fastrenderaddextradatakey-data)
+  - [FastRender.getExtraData('key')](#fastrendergetextradatakey)
+- [Route API](#route-api)
   - [FastRender.route(callback)](#fastrenderroutecallback)
   - [FastRender.onAllRoutes(callback)](#fastrenderonallroutescallback)
 - [Security](#security)
   - [Side Effects](#side-effects)
-    - [CORS Headers](#cors-headers)
-    - [Cookie Tossing](#cookie-tossing)
+  - [CORS Headers](#cors-headers)
+  - [Cookie Tossing](#cookie-tossing)
 - [Known Issues](#known-issues)
   - [Client Error: "Server sent add for existing id"](#client-error-server-sent-add-for-existing-id)
   - [No data is injected when using "AppCache" package](#no-data-is-injected-when-using-appcache-package)
@@ -34,27 +34,39 @@ Fast Render can improve the initial load time of your app, giving you 2-10 times
   - [Logs](#logs)
 <!-- /TOC -->
 
-## Fast Render 3.x vs 2.x
+## Usage
 
-### Client-side timing control
+Add Fast Render to your Meteor app:
 
-Have you ever seen the error `Expected to find a document not present for an add` or something similar when in development? You can now control the timing of FastRender so you can ensure it has loaded all of the documents before it makes a real subscription:
-
-```js
-FastRender.wait() // tell fastrender not to start loading the data automatically
-InjectData.getData('fast-render-data', function(data) {
- FastRender.init(data)
- // it is now safe to begin routing/rendering
-})
+```sh
+meteor add communitypackages:fast-render
 ```
 
-### New SSR APIs
+After that, either make sure you've moved any code that calls `Meteor.subscribe` to shared code space (client and server), or use the SSR, Route, or Extra Data API's to make data available on the client immediately upon page load.
 
-Fast Render 3.x comes with helpers for server-side rendering:
+## How Fast Render Works
 
-## Data Hydration
+Fast render runs on the server and gets the subscription data relavant to the page you are loading. Then it sends that data as part of the initial HTML of the Meteor app as shown below:
 
-FastRender will track subscriptions and load their data after your initial HTML render has been sent. The data will be immediately available for hydrating on the client. Use `FastRender.onPageLoad` instead of Meteor's `server-render` `onPageLoad`. You can use `Meteor.subscribe` in your React containers and the data will automatically be appended to the HTML document. `FastRender.route` and `FastRender.onAllRoutes` will still work as expected.
+![Meteor Subscription Data with Initial HTML](https://cldup.com/RFgMhjv7qR.png)
+
+Then Fast Render parses and loads that data into Meteor collections. This makes your Meteor app code think the data connection has been made, and it renders the page right away.
+
+## Client-side timing control
+
+If your app calls subscriptions before FastRender has loaded it's data, you may get errors such as `Expected to find a document not present for an add` when you page loads on the client. To avoid these errors when not using the SSR API, use the `FastRender.onDataReady` method.
+
+```js
+FastRender.onDataReady(() => {
+  // It is now safe to render your UI and make subscription calls
+});
+```
+
+## SSR API
+
+Fast Render comes with helpers for server-side rendering
+
+FastRender will track subscriptions and load their data after your initial HTML render has been sent. The data will be immediately available for hydrating on the client. Use `FastRender.onPageLoad` instead of Meteor's `server-render` `onPageLoad`. You can use `Meteor.subscribe` in your UI code and the data will automatically be appended to the HTML document.
 
 On the server:
 
@@ -75,48 +87,36 @@ FastRender.onPageLoad(async sink => {
 
 **Let's talk about hydration:** This is a great opportunity to make fast server-side rendered applications. Your HTML output can be rendered in a stream to the client, and the JS is only loaded and parsed once the HTML has been fully rendered. The data added by this method would not slow down the initial load time (when using streams). By injecting all of the necessary data after the HTML, the page can be rendered by the server and loaded on the client very quickly, and then the client can hydrate the DOM as soon as the JS payload loads, without then waiting for the data to load. Keep an eye on Meteor's support for `renderToNodeStream`.
 
-## What else can we do?
+### View layer specific SSR packages
+
+Sometimes you just want to plug things in and have them work without having to wire them up, and so the following is hopefully an ever growing list of packages that build upon this one to simplify the creation of server rendered app for specific view layers. If you create a package that uses this one to provide SSR for a specific view layer, open a PR and list it here.
+
+- [communitypackages:react-router-ssr](https://packosphere.com/communitypackages/react-router-ssr)
+
+### What else can we do?
 
 - Critical CSS - We can inline the CSS used by components (css-modules, etc.) and defer loading of the main stylesheet
 - Support for dynamically loaded components (react-loadable, etc.)
 
-## Usage
+## Extra Data API
 
-Add Fast Render to your Meteor app:
+In some instances your app may need to fetch data through methods that don't use the pub/sub paradigm. For instance your UI loads data from an external API or through a Meteor method call. In this case FastRender doesn't have an automatic way get an insert this data into your UI, but you can use the following API to add the data to the initial page HTML and retrieve it on the client when the UI loads.
 
-```sh
-meteor add communitypackages:fast-render
-```
+### FastRender.addExtraData('key', data)
 
-After that, make sure you've moved your route related code (`router.js` file or relavant files) to a place which can be access by both server and client. (i.e. the `lib` folder).
+On the server, this method allows you to add arbitrary data to the client payload that will be available under the 'key' using `FastRender.getExtraData` after the page loads on the client.
 
-**To add Fast Render support to FlowRouter, visit [here](https://github.com/kadirahq/flow-router#fast-render).**
+On the client this method is a NOOP and is provided strictly so that you don't have to use client/server checks to avoid errors.
 
-Rest of the documentation is for apps utilizing Iron Router.
+### FastRender.getExtraData('key')
 
-Then add the `fastRender: true` option to your route:
+On the client, this method returns the data that was added to the payload under the `key`. Once this has been called for a certain `key`, further calls for that same `key` will return `null`. This is to have server data available when the page first loads, but subsequently load fresh data. For instance when routing and you get data for the page from fast render initially, but the next time the user visits the route in the app without refreshing the page, fresh data should be fetched.
 
-```js
-this.route('leaderboard', {
- path: '/leaderboard/:date?',
- waitOn: function() {
-  return Meteor.subscribe('leaderboard')
- },
- fastRender: true,
-})
-```
+On the server this method is a NOOP and is provided strictly so that you don't have to use client/server checks to avoid errors.
 
-## How Fast Render Works
+## Route API
 
-Fast render runs the `waitOn` function (or one of the Fast Render API calls) on the server and gets the subscription data relavant to the page you are loading. Then it sends that data along with the initial HTML of the Meteor app as shown below:
-
-![Meteor Subscription Data with Initial HTML](https://cldup.com/RFgMhjv7qR.png)
-
-Then Fast Render parses and loads that data into Meteor collections. This makes your Meteor app code (Iron Router) think the data connection has been made, and it renders the page right away.
-
-## Using Fast Render's route APIs
-
-If you're doing some custom subscription handling, Fast Render won't be able to identify those subscriptions. This is also true when you are not using Iron Router.
+If you're doing some custom subscription handling, Fast Render won't be able to identify those subscriptions.
 
 If you want to use Fast Render in these cases, you'll need to map subscriptions manually to routes. It can be done using the following APIs:
 
@@ -166,7 +166,7 @@ It is wise to avoid side effects from following places:
 - fastRender routes
 - IronRouter waitOn and subscriptions methods
 
-#### CORS Headers
+### CORS Headers
 
 If your app adds [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers via connect handlers, there is a potential security issue.
 
@@ -174,7 +174,7 @@ Fast Render detects CORS headers with conflicting routes and turns off fast rend
 
 It's okay to add CORS headers to custom server side routes, but if they conflict with the client side routes (which are handled by Fast Render), then there will be a security issue. It would allow malicious XHR requests from other domains to access loggedIn user's subscription data.
 
-#### Cookie Tossing
+### Cookie Tossing
 
 If your app is available under a shared domain like `*.meteor.com` or `*.herokuapp.com`, there is a potential [security issue](https://groups.google.com/forum/#!topic/meteor-talk/Zhy1c6MdOH8).
 

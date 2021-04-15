@@ -1,4 +1,7 @@
 {
+	"scripts": {
+		"publish-release": "rimraf ./node_modules && meteor publish && meteor npm i --only=dev"
+	},
 	"devDependencies": {
 		"eslint": "^4.18.2",
 		"eslint-config-standard": "^11.0.0",

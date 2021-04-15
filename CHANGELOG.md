@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.0.0
+
+- Added FastRender.onDataReady callback
+- Added Extra Data API
+- Removed dependency on underscore
+- Improved code structure and refactored to modern syntax
+
 ## 3.3.1
 
 - published as `communitypackages:fast-render`

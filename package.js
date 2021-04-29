@@ -13,7 +13,6 @@ Npm.depends({
 Package.onUse(function (api) {
 	api.versionsFrom('METEOR@1.6.1')
 
-	api.use('chuangbo:cookie@1.1.0', 'client')
 	api.use(['communitypackages:picker@1.1.0', 'lamhieu:meteorx@2.0.1'], 'server')
 	api.use('communitypackages:inject-data@2.3.2', ['client', 'server'])
 	api.use(['livedata', 'webapp', 'routepolicy', 'random'], 'server')

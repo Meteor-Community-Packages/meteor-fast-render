@@ -15,7 +15,7 @@ Package.onUse(function (api) {
 
   api.use(['communitypackages:picker@1.1.0', 'lamhieu:meteorx@2.0.1'], 'server');
   api.use('communitypackages:inject-data@2.3.2', ['client', 'server']);
-  api.use(['livedata', 'webapp', 'routepolicy', 'random'], 'server');
+  api.use(['livedata', 'webapp', 'routepolicy', 'random', 'logging'], 'server');
   api.use(['ecmascript', 'server-render', 'accounts-base', 'ejson', 'minimongo'], ['client', 'server']);
 
   api.mainModule('lib/client/fast_render.js', 'client');

@@ -1,15 +1,53 @@
 {
 	"scripts": {
-		"publish-release": "rimraf ./node_modules && meteor publish && meteor npm i --only=dev"
+		"lint": "eslint --fix ./",
+		"publish-release": "rimraf ./node_modules && meteor publish && meteor npm i --only=dev",
+		"pre-commit": "lint-staged",
+		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"eslint": "^4.18.2",
-		"eslint-config-standard": "^11.0.0",
-		"eslint-plugin-import": "^2.9.0",
-		"eslint-plugin-meteor": "^4.2.0",
-		"eslint-plugin-node": "^6.0.1",
-		"eslint-plugin-promise": "^3.7.0",
-		"eslint-plugin-standard": "^3.0.1",
-		"rimraf": "^2.6.2"
+		"babel-eslint": "^10.1.0",
+		"eslint": "^7.25.0",
+		"eslint-config-standard": "^16.0.2",
+		"eslint-import-resolver-meteor": "^0.4.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^5.1.0",
+		"husky": "^6.0.0",
+		"lint-staged": "^10.5.4",
+		"rimraf": "^3.0.2"
+	},
+	"eslintConfig": {
+		"extends": [
+			"standard"
+		],
+		"rules": {
+			"semi": [
+				2,
+				"always"
+			],
+			"comma-dangle": [
+				2,
+				"always-multiline"
+			]
+		},
+		"parser": "babel-eslint",
+		"env": {
+			"browser": true,
+			"node": true,
+			"es6": true
+		},
+		"settings": {
+			"import/resolver": {
+				"meteor": {
+					"extensions": [
+						".js"
+					]
+				}
+			}
+		}
+	},
+	"lint-staged": {
+		"*.js": "eslint --cache --fix"
 	}
 }

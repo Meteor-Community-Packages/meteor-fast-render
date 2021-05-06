@@ -6,6 +6,8 @@
 - Added Extra Data API
 - Removed dependency on underscore
 - Improved code structure and refactored to modern syntax
+- Removed dependence on outdated chuangbo:cookie package
+- Removed the reliance on load order for timing of data loading and the need for `FastRender.wait()`
 
 ## 3.3.1
 

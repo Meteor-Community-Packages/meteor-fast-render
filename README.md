@@ -164,7 +164,6 @@ It is wise to avoid side effects from following places:
 
 - publications
 - fastRender routes
-- IronRouter waitOn and subscriptions methods
 
 ### CORS Headers
 

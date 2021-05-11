@@ -23,6 +23,7 @@ Package.onUse(function (api) {
 });
 
 Package.onTest(function (api) {
+  api.use(['meteortesting:browser-tests', 'meteortesting:mocha']);
   api.use(['ecmascript'], ['client', 'server']);
   api.use('communitypackages:fast-render', ['client', 'server']);
   api.use('tinytest', ['client', 'server']);
@@ -31,17 +32,19 @@ Package.onTest(function (api) {
   api.use('mongo', ['server', 'client']);
   api.use('server-render', ['server', 'client']);
 
-  api.addFiles(
-    [
-      'tests/utils.js',
-      'tests/client/fast_render.js',
-      'tests/client/ddp_update.js',
-    ],
-    'client',
-  );
+  api.mainModule('tests/client/index.js', 'client');
+  api.mainModule('tests/server/index.js', 'server');
+  // api.addFiles(
+  //   [
+  //     'tests/utils.js',
+  //     'tests/client/fast_render.js',
+  //     'tests/client/ddp_update.js',
+  //   ],
+  //   'client',
+  // );
 
-  api.addFiles(
-    ['tests/server/context.js', 'tests/server/integration.js'],
-    'server',
-  );
+  // api.addFiles(
+  //   ['tests/server/context.js', 'tests/server/integration.js'],
+  //   'server',
+  // );
 });

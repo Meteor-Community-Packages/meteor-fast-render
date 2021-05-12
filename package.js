@@ -14,9 +14,9 @@ Package.onUse(function (api) {
   api.versionsFrom('METEOR@1.6.1');
 
   api.use(['communitypackages:picker@1.1.0', 'lamhieu:meteorx@2.0.1'], 'server');
-  api.use('communitypackages:inject-data@2.3.2', ['client', 'server']);
+  api.use('communitypackages:inject-data@2.3.2');
   api.use(['livedata', 'webapp', 'routepolicy', 'random', 'logging'], 'server');
-  api.use(['ecmascript', 'server-render', 'accounts-base', 'ejson', 'minimongo'], ['client', 'server']);
+  api.use(['ecmascript', 'server-render', 'accounts-base', 'ejson', 'minimongo']);
 
   api.mainModule('lib/client/fast_render.js', 'client');
   api.mainModule('lib/server/fast_render.js', 'server');
@@ -24,27 +24,9 @@ Package.onUse(function (api) {
 
 Package.onTest(function (api) {
   api.use(['meteortesting:browser-tests', 'meteortesting:mocha']);
-  api.use(['ecmascript'], ['client', 'server']);
-  api.use('communitypackages:fast-render', ['client', 'server']);
-  api.use('tinytest', ['client', 'server']);
+  api.use(['ecmascript', 'random', 'mongo', 'server-render', 'communitypackages:fast-render']);
   api.use('http', 'server');
-  api.use('random', ['server', 'client']);
-  api.use('mongo', ['server', 'client']);
-  api.use('server-render', ['server', 'client']);
 
   api.mainModule('tests/client/index.js', 'client');
   api.mainModule('tests/server/index.js', 'server');
-  // api.addFiles(
-  //   [
-  //     'tests/utils.js',
-  //     'tests/client/fast_render.js',
-  //     'tests/client/ddp_update.js',
-  //   ],
-  //   'client',
-  // );
-
-  // api.addFiles(
-  //   ['tests/server/context.js', 'tests/server/integration.js'],
-  //   'server',
-  // );
 });

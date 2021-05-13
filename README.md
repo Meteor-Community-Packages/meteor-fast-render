@@ -303,7 +303,8 @@ This repo contains various tooling setups to help you keep code well formatted w
 
 3. Install Optional Editor Specific Extensions
    - Editor Config - automatically configure spacing and line breaks
-   - ESLint - show realtime linting errors in editor
+   - ESLint - show realtime JavaScript linting errors in editor
+   - Markdown Linter - show realtime Markdown linting errors in the editor (markdownlint by *David Anson* for VSCode)
    - Markdown TOC generator - automatically keep Table of Contents up to date in README. (Markdown All in One by *Yu Zhang* for VSCode is a great extension for this.)
 
 These extensions are optional but they will help youto have consistent whitespace when switching projects, to spot issues sooner, and keep the TOC automaticallu up to date when making changes to markdown files.

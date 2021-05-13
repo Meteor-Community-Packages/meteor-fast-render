@@ -32,6 +32,10 @@ Fast Render can improve the initial load time of your app, giving you 2-10 times
   - [Get Payload](#get-payload)
   - [Disable Fast Render](#disable-fast-render)
   - [Logs](#logs)
+- [Development](#development)
+  - [Setup](#setup)
+  - [Testing](#testing)
+  - [Committing Changes](#committing-changes)
 <!-- /TOC -->
 
 ## Usage
@@ -274,3 +278,62 @@ You can turn it on using `FastRender.debugger.showLogs()`.
 Hide them again using `FastRender.debugger.hideLogs()`.
 
 You can get all of the log messages by using `FastRender.debugger.getLogs()` and `FastRender.debugger.getLogsJSON()`.
+
+## Development
+
+This repo contains various tooling setups to help you keep code well formatted with consistent style, as well as tests to help ensure that your code changes don't break functionality. The following information will help you get started.
+
+### Setup
+
+1. Clone the repository
+
+    ```sh
+    git clone https://github.com/Meteor-Community-Packages/meteor-fast-render.git
+    ```
+
+    ```sh
+    cd meteor-fast-render
+    ```
+
+2. Install Dependencies
+
+   ```sh
+   npm install
+   ```
+
+3. Install Optional Editor Specific Extensions
+   - Editor Config - automatically configure spacing and line breaks
+   - ESLint - show realtime linting errors in editor
+   - Markdown TOC generator - automatically keep Table of Contents up to date in README. (Markdown All in One by *Yu Zhang* for VSCode is a great extension for this.)
+
+These extensions are optional but they will help youto have consistent whitespace when switching projects, to spot issues sooner, and keep the TOC automaticallu up to date when making changes to markdown files.
+
+### Testing
+
+This repo contains tests to help reduce bugs and breakage. Before committing and submitting your changes, you should run the tests and make sure they pass. Follow these steps to run the tests for this repo.
+
+1. From the project directory, move into the testApp directory
+
+    ```sh
+    cd testApp
+    ```
+
+2. Run Setup
+
+    ```sh
+    npm run setup
+    ```
+
+3. Run Tests
+
+    ```sh
+    npm test
+    ```
+
+    ```sh
+    npm run test:watch
+    ```
+
+### Committing Changes
+
+Upon commit, this repo will run a pre-commit hook to lint your changes. Minor fixable linting errors will be automatically fixed before commit. If the errors are not fixable, a message will be dispalyed and you will need to fix the errors before commiting the changes.

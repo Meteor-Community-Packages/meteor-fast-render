@@ -15,6 +15,7 @@
 		"eslint-plugin-promise": "^5.1.0",
 		"husky": "^6.0.0",
 		"lint-staged": "^10.5.4",
+		"markdownlint-cli": "^0.27.1",
 		"rimraf": "^3.0.2"
 	},
 	"eslintConfig": {
@@ -48,6 +49,7 @@
 		}
 	},
 	"lint-staged": {
-		"*.js": "eslint --cache --fix"
+		"*.js": "eslint --cache --fix",
+		"*.md": "markdownlint -f -c markdownlint.json"
 	}
 }

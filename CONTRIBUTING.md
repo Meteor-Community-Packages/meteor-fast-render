@@ -12,6 +12,7 @@
 First, thank you for considering contributing to AutoForm! It's people like you that make the open source community such a great community! 😊
 
 We welcome any type of contribution, not only code. You can help with
+
 - **QA**: file bug reports, the more details you can give the better (e.g. screenshots with the console open or better yet pasted output from the console)
 - **Marketing**: writing blog posts, howto's, printing stickers, ...
 - **Community**: presenting the project at meetups, organizing a dedicated meetup for the local community, ...

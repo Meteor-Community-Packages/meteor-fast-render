@@ -50,6 +50,6 @@
 	},
 	"lint-staged": {
 		"*.js": "eslint --cache --fix",
-		"*.md": "markdownlint -f -c markdownlint.json"
+		"*.md": "markdownlint -f -c .markdownlint.json"
 	}
 }

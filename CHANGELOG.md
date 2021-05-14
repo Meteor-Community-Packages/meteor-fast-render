@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.0.0
+
+- Added FastRender.onDataReady callback
+- Added Extra Data API
+- Removed dependency on underscore
+- Improved code structure and refactored to modern syntax
+- Removed dependence on outdated chuangbo:cookie package
+- Removed the reliance on load order for timing of data loading and the need for `FastRender.wait()`
+
 ## 3.3.1
 
 - published as `communitypackages:fast-render`

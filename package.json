@@ -1,33 +1,55 @@
 {
-	"name": "fast-render",
-	"version": "3.0.8",
-	"description": "A way to inject data to the client with initial HTML. A continuation of `meteorhacks:inject-data`.",
-	"main": "package.js",
-	"directories": {
-		"lib": "lib",
-		"test": "tests"
-	},
-	"dependencies": {},
-	"devDependencies": {
-		"eslint": "^4.18.2",
-		"eslint-config-standard": "^11.0.0",
-		"eslint-plugin-import": "^2.9.0",
-		"eslint-plugin-meteor": "^4.2.0",
-		"eslint-plugin-node": "^6.0.1",
-		"eslint-plugin-promise": "^3.7.0",
-		"eslint-plugin-standard": "^3.0.1"
-	},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"lint": "eslint --fix ./",
+		"publish-release": "rimraf ./node_modules && meteor publish && meteor npm i --only=dev",
+		"pre-commit": "lint-staged",
+		"prepare": "husky install"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/abecks/fast-render.git"
+	"devDependencies": {
+		"babel-eslint": "^10.1.0",
+		"eslint": "^7.26.0",
+		"eslint-config-standard": "^10.2.1",
+		"eslint-import-resolver-meteor": "^0.4.0",
+		"eslint-plugin-import": "^2.2.0",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^5.1.0",
+		"husky": "^6.0.0",
+		"lint-staged": "^11.0.0",
+		"markdownlint-cli": "^0.27.1",
+		"rimraf": "^3.0.2"
 	},
-	"author": "",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/abecks/fast-render/issues"
+	"eslintConfig": {
+		"extends": [
+			"standard"
+		],
+		"rules": {
+			"semi": [
+				2,
+				"always"
+			],
+			"comma-dangle": [
+				2,
+				"always-multiline"
+			]
+		},
+		"parser": "babel-eslint",
+		"env": {
+			"browser": true,
+			"node": true,
+			"es6": true
+		},
+		"settings": {
+			"import/resolver": {
+				"meteor": {
+					"extensions": [
+						".js"
+					]
+				}
+			}
+		}
 	},
-	"homepage": "https://github.com/abecks/fast-render#readme"
+	"lint-staged": {
+		"*.js": "eslint --cache --fix",
+		"*.md": "markdownlint -f -c .markdownlint.json"
+	}
 }

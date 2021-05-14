@@ -1,86 +1,32 @@
 /* global Package Npm */
 Package.describe({
-	summary: 'Render your app before the DDP connection even comes alive - magic?',
-	version: '3.3.1',
-	git: 'https://github.com/Meteor-Community-Packages/meteor-fast-render',
-	name: 'communitypackages:fast-render',
-})
+  summary: 'Render your app before the DDP connection even comes alive - magic?',
+  version: '4.0.0',
+  git: 'https://github.com/Meteor-Community-Packages/meteor-fast-render',
+  name: 'communitypackages:fast-render',
+});
 
 Npm.depends({
-	'cookie-parser': '1.4.5',
-})
+  'cookie-parser': '1.4.5',
+});
 
 Package.onUse(function (api) {
-	api.versionsFrom('METEOR@1.6.1')
-	api.mainModule('lib/client/fast_render.js', 'client')
-	api.mainModule('lib/server/namespace.js', 'server')
-	api.use('communitypackages:inject-data@2.3.1', ['client', 'server'])
-	api.use('chuangbo:cookie@1.1.0', 'client')
-	api.use('communitypackages:picker@1.1.0', 'server')
-	api.use('lamhieu:meteorx@2.0.1', 'server')
+  api.versionsFrom('METEOR@1.6.1');
 
-	api.use(
-		[
-			'minimongo',
-			'livedata',
-			'ejson',
-			'underscore',
-			'webapp',
-			'routepolicy',
-			'accounts-base',
-			'random',
-		],
-		['server']
-	)
-	api.use(['minimongo', 'ejson', 'accounts-base'], ['client'])
+  api.use(['communitypackages:picker@1.1.0', 'lamhieu:meteorx@2.0.1'], 'server');
+  api.use('communitypackages:inject-data@2.3.2');
+  api.use(['livedata', 'webapp', 'routepolicy', 'random', 'logging'], 'server');
+  api.use(['ecmascript', 'server-render', 'accounts-base', 'ejson', 'minimongo']);
 
-	api.addFiles(
-		[
-			'lib/server/utils.js',
-			'lib/server/routes.js',
-			'lib/server/publish_context.js',
-			'lib/server/context.js',
-			'lib/server/ssr_helper.js',
-		],
-		'server'
-	)
-
-	api.addFiles(
-		[
-			'lib/client/id_tools.js',
-			'lib/client/debugger.js',
-			'lib/client/ddp_update.js',
-			'lib/client/auth.js',
-			'lib/client/ssr_helper.js',
-			'lib/client/boot.js',
-		],
-		'client'
-	)
-	api.use(['ecmascript', 'server-render'], ['client', 'server'])
-	// api.export('FastRender', ['client', 'server'])
-	// api.export('__init_fast_render', ['client'])
-})
+  api.mainModule('lib/client/fast_render.js', 'client');
+  api.mainModule('lib/server/fast_render.js', 'server');
+});
 
 Package.onTest(function (api) {
-	api.use(['ecmascript'], ['client', 'server'])
-	api.use('communitypackages:fast-render', ['client', 'server'])
-	api.use('tinytest', ['client', 'server'])
-	api.use('http', 'server')
-	api.use('random', ['server', 'client'])
-	api.use('mongo', ['server', 'client'])
-	api.use('server-render', ['server', 'client'])
+  api.use(['meteortesting:browser-tests', 'meteortesting:mocha']);
+  api.use(['ecmascript', 'random', 'mongo', 'server-render', 'communitypackages:fast-render']);
+  api.use('http', 'server');
 
-	api.addFiles(
-		[
-			'tests/utils.js',
-			'tests/client/fast_render.js',
-			'tests/client/ddp_update.js',
-		],
-		'client'
-	)
-
-	api.addFiles(
-		['tests/server/context.js', 'tests/server/integration.js'],
-		'server'
-	)
-})
+  api.mainModule('tests/client/index.js', 'client');
+  api.mainModule('tests/server/index.js', 'server');
+});

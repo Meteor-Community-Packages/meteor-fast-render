@@ -1,4 +1,6 @@
 {
+  "name": "meteor-fast-render",
+  "version": "1.0.0",
 	"scripts": {
 		"lint": "eslint ./",
 		"publish-release": "rimraf ./node_modules && meteor publish && meteor npm i --only=dev",

@@ -28,5 +28,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      - run: meteor npm run lint
       - run: cd testApp && meteor npm ci
       - run: cd testApp && meteor npm run test

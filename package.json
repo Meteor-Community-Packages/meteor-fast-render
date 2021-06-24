@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint ./ && markdownlint ./",
-    "publish-release": "rimraf ./node_modules && meteor publish && meteor npm i --only=dev",
+    "publish-release": "rimraf ./node_modules && meteor publish && npm i --only=dev",
     "pre-commit": "lint-staged",
     "prepare": "husky install"
   },

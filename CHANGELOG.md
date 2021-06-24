@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.0.1
+
+- Fixed null publication data not being added to payload
+
 ## 4.0.0
 
 - Added FastRender.onDataReady callback

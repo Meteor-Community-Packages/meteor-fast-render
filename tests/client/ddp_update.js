@@ -32,7 +32,6 @@ describe('DDPUpdate', function () {
 
       Meteor.setTimeout(function () {
         assert.deepEqual(coll.findOne('one'), { _id: 'one', name: 'kuma', age: 20 });
-        console.log('finishing');
         done();
       }, bufferedWritesInterval);
     }, bufferedWritesInterval);

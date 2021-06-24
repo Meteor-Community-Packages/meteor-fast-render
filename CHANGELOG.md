@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.0.2
+
+- Compatiblity with Meteor 2.3
+
 ## 4.0.1
 
 - Fixed null publication data not being added to payload

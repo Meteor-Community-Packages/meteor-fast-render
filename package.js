@@ -1,7 +1,7 @@
 /* global Package Npm */
 Package.describe({
   summary: 'Render your app before the DDP connection even comes alive - magic?',
-  version: '4.0.1',
+  version: '4.0.2',
   git: 'https://github.com/Meteor-Community-Packages/meteor-fast-render',
   name: 'communitypackages:fast-render',
 });
@@ -11,7 +11,7 @@ Npm.depends({
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('METEOR@1.6.1');
+  api.versionsFrom(['1.6.1', '2.3']);
 
   api.use(['communitypackages:picker@1.1.0', 'lamhieu:meteorx@2.0.1'], 'server');
   api.use('communitypackages:inject-data@2.3.2');

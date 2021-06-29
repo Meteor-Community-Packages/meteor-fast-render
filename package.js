@@ -1,7 +1,7 @@
 /* global Package Npm */
 Package.describe({
   summary: 'Render your app before the DDP connection even comes alive - magic?',
-  version: '4.0.2',
+  version: '4.0.3',
   git: 'https://github.com/Meteor-Community-Packages/meteor-fast-render',
   name: 'communitypackages:fast-render',
 });

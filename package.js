@@ -13,7 +13,7 @@ Npm.depends({
 Package.onUse(function (api) {
   api.versionsFrom(['1.6.1', '2.3']);
 
-  api.use(['communitypackages:picker@1.1.0', 'lamhieu:meteorx@2.0.1'], 'server');
+  api.use(['communitypackages:picker@1.1.0', 'montiapm:meteorx@2.2.0'], 'server');
   api.use('communitypackages:inject-data@2.3.2');
   api.use(['livedata', 'webapp', 'routepolicy', 'random', 'logging'], 'server');
   api.use(['ecmascript', 'server-render', 'accounts-base', 'ejson', 'minimongo']);

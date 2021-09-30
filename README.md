@@ -27,6 +27,7 @@ Fast Render can improve the initial load time of your app, giving you 2-10 times
   - [Client Error: "Server sent add for existing id"](#client-error-server-sent-add-for-existing-id)
   - [No data is injected when using "AppCache" package](#no-data-is-injected-when-using-appcache-package)
   - [No data is injected when using Meteor Subscription Cache](#no-data-is-injected-when-using-meteor-subscription-cache)
+  - [No support for publication strategies](#no-support-for-publication-strategies)
 - [Debugging](#debugging)
   - [Block DDP](#block-ddp)
   - [Get Payload](#get-payload)
@@ -204,6 +205,10 @@ Related Issue & Discussion: <https://github.com/kadirahq/fast-render/issues/136>
 ### No data is injected when using Meteor Subscription Cache
 
 When using the subscache package (`ccorcos:subs-cache` or `blockrazor:subscache-c4`) the parameters passed to the subscription must the identical on both Fast Render and Subscache or no data will be injected.
+
+### No support for publication strategies
+
+This package could affect the behavior of non-default [publication strategies](https://docs.meteor.com/api/pubsub.html#Publication-strategies). 
 
 ## Debugging
 

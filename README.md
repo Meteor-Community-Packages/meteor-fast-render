@@ -208,7 +208,7 @@ When using the subscache package (`ccorcos:subs-cache` or `blockrazor:subscache-
 
 ### No support for publication strategies
 
-This package could affect the behavior of non-default [publication strategies](https://docs.meteor.com/api/pubsub.html#Publication-strategies). 
+This package could affect the behavior of non-default [publication strategies](https://docs.meteor.com/api/pubsub.html#Publication-strategies).
 
 ## Debugging
 

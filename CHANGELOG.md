@@ -1,12 +1,20 @@
 # Change Log
 
+## 4.0.7
+
+- Compatibility with Meteor 3.0
+
+## 4.0.6
+
+- Update dependencies
+
 ## 4.0.5
 
-- update meteorx to `montiapm:meteorx` for compatibility with Meteor 2.3
+- Update meteorx to `montiapm:meteorx` for compatibility with Meteor 2.3
 
 ## 4.0.2
 
-- Compatiblity with Meteor 2.3
+- Compatibility with Meteor 2.3
 
 ## 4.0.1
 

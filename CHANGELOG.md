@@ -5,6 +5,7 @@
 - Update `montiapm:meteorx` to v2.3.1
 - Minor update of dev depenenices
 - Updated GitHub Actions workflow
+- Update `cookie-parser` to v1.4.6
 
 ## 4.0.6
 

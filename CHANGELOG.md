@@ -1,5 +1,15 @@
 # Change Log
 
+## 4.0.7
+
+- Update `montiapm:meteorx` to v2.3.1
+- Minor update of dev depenenices
+- Updated GitHub Actions workflow
+
+## 4.0.6
+
+- Update dependencies
+
 ## 4.0.5
 
 - update meteorx to `montiapm:meteorx` for compatibility with Meteor 2.3

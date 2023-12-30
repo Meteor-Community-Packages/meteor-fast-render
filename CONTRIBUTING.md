@@ -17,7 +17,7 @@ We welcome any type of contribution, not only code. You can help with
 - **Marketing**: writing blog posts, howto's, printing stickers, ...
 - **Community**: presenting the project at meetups, organizing a dedicated meetup for the local community, ...
 - **Code**: take a look at the [open issues](issues). Even if you can't write code, commenting on them, showing that you care about a given issue matters. It helps us triage them.
-- **Money**: we encourage financial contributions to indivudual developers through github sponsors. See the main page of this repo's __*Sponsor this project*__ section
+- **Money**: we encourage financial contributions to individual developers through github sponsors. See the main page of this repo's **Sponsor this project** section
 
 ## Your First Contribution
 
@@ -34,8 +34,8 @@ It is also always helpful to have some context for your pull request. What was t
 
 ## Financial contributions
 
-We encourage sponsorship of individual developers directly. If you'd like to contribute financially, please see the __*Sponsor this project*__ section of [this repo](https://github.com/Meteor-Community-Packages/meteor-fast-render) to find a developer that helps make this project possible. Also don't forget to explore other [Meteor Community Packages](https://github.com/Meteor-Community-Packages) repositories and check their __*Sponsor this project*__ sections for other amazing developers doing great work to keep these packages alive and well.
+We encourage sponsorship of individual developers directly. If you'd like to contribute financially, please see the **Sponsor this project** section of [this repo](https://github.com/Meteor-Community-Packages/meteor-fast-render) to find a developer that helps make this project possible. Also don't forget to explore other [Meteor Community Packages](https://github.com/Meteor-Community-Packages) repositories and check their **Sponsor this project** sections for other amazing developers doing great work to keep these packages alive and well.
 
 ## Questions
 
-If you have any questions, create an [issue](issue) (__protip__: do a quick search first to see if someone else has already asked the same question before!).
+If you have any questions, create an [issue](issue) (**protip**: do a quick search first to see if someone else has already asked the same question before!).

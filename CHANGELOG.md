@@ -13,11 +13,11 @@
 
 ## 4.0.5
 
-- update meteorx to `montiapm:meteorx` for compatibility with Meteor 2.3
+- Update meteorx to `montiapm:meteorx` for compatibility with Meteor 2.3
 
 ## 4.0.2
 
-- Compatiblity with Meteor 2.3
+- Compatibility with Meteor 2.3
 
 ## 4.0.1
 

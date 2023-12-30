@@ -11,7 +11,7 @@ Npm.depends({
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom(['1.6.1', '2.3']);
+  api.versionsFrom(['1.6.1', '2.3', '3.0-alpha.11']);
 
   api.use(['communitypackages:picker@1.1.1', 'montiapm:meteorx@2.3.1'], 'server');
   api.use('communitypackages:inject-data@2.3.2');

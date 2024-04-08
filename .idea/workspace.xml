@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0bbb103-af6a-452e-ac3e-bebd2e0635b7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +46,8 @@
   "keyToStringList": {
     "js.meteor.library.cached": [
       "/home/storyteller/Web/meteor/community-packages/meteor-fast-render/testApp/.meteor"
+    ],
+    "stardust.markdown.MarkdownSplitEditorSuppressor:keyList": [
     ]
   }
 }]]></component>
@@ -66,6 +68,7 @@
       <updated>1692806842234</updated>
       <workItem from="1692806844763" duration="896000" />
       <workItem from="1703962200192" duration="1576000" />
+      <workItem from="1703964708923" duration="390000" />
     </task>
     <servers />
   </component>

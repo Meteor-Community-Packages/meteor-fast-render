@@ -1,6 +1,13 @@
 # Change Log
 
-## 4.0.7
+## 4.0.9
+
+- Updated `communitypackages:picker` to v1.2.0
+- Updated `communitypackages:inject-data` to v2.3.3
+- Updated development dependencies
+- Updated Meteor compatibility upgrade to v3.0-rc.1, note that this does not mean that this package is Meter 3 compatible, only that it won't give you trouble in version resolution when updating to RC 1.
+
+## 4.0.7 & 4.0.8
 
 - Update `montiapm:meteorx` to v2.3.1
 - Minor update of dev depenenices

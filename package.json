@@ -27,7 +27,8 @@
     ],
     "ignorePatterns": [
       "node_modules",
-      "testApp/packages"
+      "testApp/packages",
+      "tests"
     ],
     "rules": {
       "semi": [

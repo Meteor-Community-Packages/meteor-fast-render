@@ -6,7 +6,7 @@ import { Mongo } from 'meteor/mongo';
 import { EJSON } from 'meteor/ejson';
 import { assert } from 'chai';
 
-const bufferedWritesInterval = 5;
+const bufferedWritesInterval = 10;
 
 describe('DDPUpdate', function () {
   it('convert added to changed', function (done) {
@@ -20,8 +20,10 @@ describe('DDPUpdate', function () {
       fields: { name: 'arunoda' },
     });
 
-    Meteor.setTimeout(function () {
-      assert.deepEqual(coll.findOne('one'), { _id: 'one', name: 'arunoda' });
+    Meteor.setTimeout(async function () {
+      const doc = await coll.findOneAsync('one');
+      console.log(doc);
+      assert.deepEqual(doc, { _id: 'one', name: 'arunoda' });
 
       Meteor.connection._livedata_data({
         msg: 'added',
@@ -30,8 +32,8 @@ describe('DDPUpdate', function () {
         fields: { name: 'kuma', age: 20 },
       });
 
-      Meteor.setTimeout(function () {
-        assert.deepEqual(coll.findOne('one'), { _id: 'one', name: 'kuma', age: 20 });
+      Meteor.setTimeout(async function () {
+        assert.deepEqual(await coll.findOneAsync('one'), { _id: 'one', name: 'kuma', age: 20 });
         done();
       }, bufferedWritesInterval);
     }, bufferedWritesInterval);
@@ -55,8 +57,10 @@ describe('DDPUpdate', function () {
     });
 
     const coll = new Mongo.Collection(collName);
-    Meteor.setTimeout(function () {
-      assert.equal(coll.find().fetch().length, 2);
+    Meteor.setTimeout(async function () {
+      const docs = await coll.find().fetchAsync()
+      console.log(docs);
+      assert.equal(docs.length, 2);
       done();
     }, bufferedWritesInterval);
   });

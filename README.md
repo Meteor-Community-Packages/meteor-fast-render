@@ -129,7 +129,7 @@ If you want to use Fast Render in these cases, you'll need to map subscriptions 
 
 ### FastRender.route(callback)
 
-This declares server side routes using a URL pattern similar to Iron Router's. The callback runs in a context very similar to Meteor and you can use any Meteor APIs inside it (it runs on a Fiber). Inside, you can subscribe to publications using `this.subscribe`.
+This declares server side routes using a URL pattern similar to Iron Router's. The callback runs in a context very similar to Meteor and you can use any Meteor APIs inside it. Inside, you can subscribe to publications using `this.subscribe`.
 
 Use it like this:
 

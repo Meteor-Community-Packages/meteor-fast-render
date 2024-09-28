@@ -1,16 +1,31 @@
 {
-  "name": "testapp",
+  "name": "fast-render-update",
   "private": true,
   "scripts": {
     "start": "meteor run",
     "setup": "meteor npm install && mkdir -p packages && ln -sfn ../../ ./packages/meteor-fast-render",
     "test": "METEOR_PACKAGE_DIRS='../' TEST_BROWSER_DRIVER=puppeteer meteor test-packages --once --raw-logs --driver-package meteortesting:mocha ../",
-    "test:watch": "METEOR_PACKAGE_DIRS='../' TEST_BROWSER_DRIVER=puppeteer TEST_WATCH=1 meteor test-packages --raw-logs --driver-package meteortesting:mocha ../"
+    "test:watch": "METEOR_PACKAGE_DIRS='../' TEST_BROWSER_DRIVER=puppeteer TEST_WATCH=1 meteor test-packages --raw-logs --driver-package meteortesting:mocha ../",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
-    "@babel/runtime": "^7.11.2",
-    "chai": "^4.3.4",
-    "meteor-node-stubs": "^1.0.1",
-    "puppeteer": "^9.1.1"
+    "@babel/runtime": "^7.25.0",
+    "autoprefixer": "^10.4.4",
+    "chai": "^5.1.1",
+    "meteor-node-stubs": "^1.2.7",
+    "postcss": "^8.4.12",
+    "postcss-load-config": "^3.1.4",
+    "puppeteer": "^23.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tailwindcss": "^3.0.23"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.jsx",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
   }
 }
+

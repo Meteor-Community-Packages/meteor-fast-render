@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { LinksCollection } from '../../../../../../../imports/api/links';
+import { LinksCollection } from '../imports/api/links';
 import { FastRender } from 'meteor/communitypackages:fast-render';
 
 async function insertLink ({ title, url }) {

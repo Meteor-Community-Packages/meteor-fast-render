@@ -78,7 +78,7 @@ On the server:
 ```js
 FastRender.onPageLoad(sink => {
  sink.renderIntoElementById('app', renderToString(<App />))
-})
+});
 ```
 
 On the client:
@@ -87,7 +87,7 @@ On the client:
 FastRender.onPageLoad(async sink => {
  const App = (await import('/imports/components/App/App')).default
  ReactDOM.hydrate(<App />, document.getElementById('app'))
-})
+});
 ```
 
 **Let's talk about hydration:** This is a great opportunity to make fast server-side rendered applications. Your HTML output can be rendered in a stream to the client, and the JS is only loaded and parsed once the HTML has been fully rendered. The data added by this method would not slow down the initial load time (when using streams). By injecting all of the necessary data after the HTML, the page can be rendered by the server and loaded on the client very quickly, and then the client can hydrate the DOM as soon as the JS payload loads, without then waiting for the data to load. Keep an eye on Meteor's support for `renderToNodeStream`.
@@ -134,9 +134,9 @@ This declares server side routes using a URL pattern similar to Iron Router's. T
 Use it like this:
 
 ```js
-FastRender.route('/leaderboard/:date', function(params) {
- this.subscribe('leaderboard', params.date)
-})
+FastRender.route('/leaderboard/:date', async function(params) {
+ await this.subscribe('leaderboard', params.date)
+});
 ```
 
 ### FastRender.onAllRoutes(callback)
@@ -146,9 +146,9 @@ This is very similar to `FastRender.route`, but lets you register a callback whi
 Use it like this:
 
 ```js
-FastRender.onAllRoutes(function(path) {
- this.subscribe('currentUser')
-})
+FastRender.onAllRoutes(async function(path) {
+ await this.subscribe('currentUser')
+});
 ```
 
 ## Security
@@ -219,13 +219,13 @@ Sometimes, you need to test whether Fast Render is working or not. You can do th
 You can block the DDP connection and check whether the page was fast rendered or not. Once blocked, no DDP messages will be accepted. To block, apply following command in the browser console:
 
 ```js
-FastRender.debugger.blockDDP()
+FastRender.debugger.blockDDP();
 ```
 
 You can unblock it with:
 
 ```js
-FastRender.debugger.unblockDDP()
+FastRender.debugger.unblockDDP();
 ```
 
 ### Get Payload
@@ -233,7 +233,7 @@ FastRender.debugger.unblockDDP()
 With the following command you can inspect the data that comes on a Fast Render page load:
 
 ```js
-FastRender.debugger.getPayload()
+FastRender.debugger.getPayload();
 ```
 
 It will be in this format:
@@ -265,13 +265,13 @@ It will be in this format:
 You can also use a command to disable Fast Render:
 
 ```js
-FastRender.debugger.disableFR()
+FastRender.debugger.disableFR();
 ```
 
 Re-enable it with:
 
 ```js
-FastRender.debugger.enableFR()
+FastRender.debugger.enableFR();
 ```
 
 ### Logs

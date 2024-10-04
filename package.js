@@ -15,7 +15,7 @@ Package.onUse(function (api) {
 
   api.use(['communitypackages:picker@2.0.0-beta.0', 'montiapm:meteorx@2.3.1'], 'server');
   api.use('communitypackages:inject-data@3.0.0-beta.0');
-  api.use(['livedata', 'webapp', 'routepolicy', 'random', 'logging'], 'server');
+  api.use(['webapp', 'routepolicy', 'random', 'logging'], 'server');
   api.use(['ecmascript', 'server-render', 'accounts-base', 'ejson', 'minimongo']);
 
   api.mainModule('lib/client/fast_render.js', 'client');

@@ -90,6 +90,28 @@ FastRender.onPageLoad(async sink => {
 });
 ```
 
+### `FastRender.onPageLoadWithoutSink(callback)`
+
+`onPageLoad` builds on Meteor's `server-render` **sink**, which renders your app into an
+existing boilerplate HTML document. Some SSR setups instead render the **entire** `<html>`
+document themselves and take over the HTTP response — for example, streaming a full React 19
+document with `renderToPipeableStream`. For those, use `onPageLoadWithoutSink`:
+
+```js
+FastRender.onPageLoadWithoutSink(async (request, data, arch, response) => {
+  // `request` / `response` are the raw Node req/res. You own the response: render your whole
+  // document and call `response.end(html)` yourself. Any `Meteor.subscribe` made while
+  // rendering is captured into the FastRender context and merged into the inject-data payload,
+  // just like `onPageLoad`.
+});
+```
+
+The callback runs inside a FastRender context, so subscription data collected during your
+render is serialized for the client to hydrate. Because the callback ends the response itself,
+call `WebAppInternals.disableBoilerplateResponse()` once at setup so webapp doesn't also try to
+send the default boilerplate. This is the entry point used by
+[`communitypackages:react-router-ssr`](https://packosphere.com/communitypackages/react-router-ssr).
+
 **Let's talk about hydration:** This is a great opportunity to make fast server-side rendered applications. Your HTML output can be rendered in a stream to the client, and the JS is only loaded and parsed once the HTML has been fully rendered. The data added by this method would not slow down the initial load time (when using streams). By injecting all of the necessary data after the HTML, the page can be rendered by the server and loaded on the client very quickly, and then the client can hydrate the DOM as soon as the JS payload loads, without then waiting for the data to load. Keep an eye on Meteor's support for `renderToNodeStream`.
 
 ### View layer specific SSR packages

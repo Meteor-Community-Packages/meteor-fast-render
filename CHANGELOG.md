@@ -1,5 +1,21 @@
 # Change Log
 
+## 5.0.0
+
+- Meteor 3 compatibility: the server render path is now fully async, and the FastRender
+  context is tracked via `DDP._CurrentInvocation` so it survives `async`/`await` boundaries.
+- Server-side `Meteor.subscribe` now works with `server-render` and React Suspense — it runs
+  the publication and records its documents into the current FastRender context, so suspendable
+  data hooks (e.g. `react-meteor-data`'s Suspense `useSubscribe`) are captured for hydration.
+- Added `FastRender.onPageLoadWithoutSink(callback)` for SSR flows where the callback renders
+  and ends the whole HTTP response itself (for example, whole-`document` React 19 rendering)
+  rather than using `server-render`'s sink. Subscription data captured during the render is
+  merged into the inject-data payload exactly as with `onPageLoad`. See the SSR API section of
+  the README.
+- Guard `res.writeHead` inside the without-sink flow to avoid `ERR_HTTP_HEADERS_SENT` when the
+  callback has already sent and ended the response (`disableBoilerplateResponse()` only skips
+  piping the boilerplate body, not webapp's unconditional `writeHead`).
+
 ## 4.0.9
 
 - Updated `communitypackages:picker` to v1.2.0
